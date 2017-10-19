@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="LyricEditor.UserControls.LrcLineView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LyricEditor.UserControls"
+             mc:Ignorable="d"
+             xmlns:lrc="clr-namespace:LyricEditor.Lyric"
+             d:DesignHeight="305" d:DesignWidth="600">
+    <Grid Margin="0,0,0,5">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <ListView Name="LrcLinePanel" Margin="0,0,0,5" FontSize="16" SelectionMode="Single"
+                  MouseDoubleClick="LrcLinePanel_MouseDoubleClick"
+                  KeyUp="LrcLinePanel_KeyUp"
+                  SelectionChanged="LrcLinePanel_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding LrcTimeText}" HorizontalAlignment="Center"/>
+                        <TextBlock Name="LrcTextBlock" Grid.Column="2" Text="{Binding LrcText}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <lrc:LrcLine LrcTimeText="00:00.524" LrcText="一条大河波浪宽"/>
+            <lrc:LrcLine LrcTimeText="00:05.734" LrcText="风吹稻花香两岸"/>
+            <lrc:LrcLine LrcTimeText="00:10.132" LrcText="我家就在岸上住"/>
+            <lrc:LrcLine LrcTimeText="00:15.947" LrcText="听惯了艄公的号子"/>
+            <lrc:LrcLine LrcTimeText="00:20.645" LrcText="看惯了船上的白帆"/>
+            <lrc:LrcLine LrcTimeText="00:25.234" LrcText="这是美丽的祖国"/>
+            <lrc:LrcLine LrcTimeText="00:30.841" LrcText="是我生长的地方"/>
+            <lrc:LrcLine LrcTimeText="00:35.036" LrcText="在这片辽阔的土地上"/>
+            <lrc:LrcLine LrcTimeText="00:40.527" LrcText="到处都有明媚的春光"/>
+        </ListView>
+
+        <!--下方编辑栏-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.Resources>
+                <Style TargetType="TextBox">
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+            </Grid.Resources>
+            <TextBox Name="CurrentTimeText" 
+                     TextChanged="CurrentTime_Changed" 
+                     MouseWheel="CurrentTimeText_MouseWheel"
+                     BorderThickness="1,1,0,1" Text="00:00.524" HorizontalContentAlignment="Left" Padding="7,0,0,0"/>
+            <Border Grid.Column="1" BorderThickness="0" Background="#FFABADB3"/>
+            <TextBox Name="CurrentLrcText"  TextChanged="CurrentLrc_Changed"
+                     Grid.Column="2" BorderThickness="0,1,1,1" Text="一条大河波浪宽" Padding="4,0,0,0"/>
+        </Grid>
+
+    </Grid>
+</UserControl>

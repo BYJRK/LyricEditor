@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="LyricEditor.UserControls.LrcTextView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LyricEditor.UserControls"
+             xmlns:conv="clr-namespace:LyricEditor.Converters"
+             mc:Ignorable="d" 
+             FontSize="16"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBox Name="LrcTextPanel" TextWrapping="Wrap"
+                 AcceptsReturn="True" AcceptsTab="True" Padding="5" 
+                 BorderThickness="1,1,1,0"
+                 VerticalScrollBarVisibility="Auto"/>
+
+        <ToggleButton Name="ToolToggle" Background="White" BorderBrush="#FFABADB3" Grid.Row="1" IsChecked="False"/>
+        <Border Grid.Row="2" BorderThickness="0" BorderBrush="#FFABADB3" Background="White">
+            <Grid Visibility="{Binding ElementName=ToolToggle,Path=IsChecked,Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.Resources>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="5,5,0,0"/>
+                    </Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Setter Property="Margin" Value="5,5,5,0"/>
+                        <Setter Property="Grid.Column" Value="1"/>
+                    </Style>
+                </Grid.Resources>
+                <TextBlock Text="查找内容："/>
+                <TextBlock Text="替换为：" Grid.Row="1"/>
+                <TextBox Name="PatternText" />
+                <TextBox Name="ReplaceText" Grid.Row="1"/>
+                <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                    <CheckBox Name="UsingRegex" Margin="5" Content="使用正则表达式" VerticalContentAlignment="Center">
+                        <CheckBox.ToolTip>
+                            <TextBlock>
+                            如果你想设置正则表达式的模式，请使用如下语法：<LineBreak/>
+                            i：忽略大小写<LineBreak/>
+                            m：多行模式<LineBreak/>
+                            s：单行模式<LineBreak/>
+                            n：显式捕获<LineBreak/>
+                            x：忽略空白<LineBreak/>
+                            使用方法：<LineBreak/>
+                            (?imsnx-imsnx)：设置或取消特殊模式
+                            </TextBlock>
+                        </CheckBox.ToolTip>
+                    </CheckBox>
+                    <Button HorizontalAlignment="Right" Background="White"
+                        Width="50" Height="25" Margin="5"
+                        Click="ReplaceButton_Click">
+                        替换
+                    </Button>
+                </Grid>
+            </Grid>
+        </Border>
+
+    </Grid>
+</UserControl>
