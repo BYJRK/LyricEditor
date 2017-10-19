@@ -7,7 +7,7 @@ If you want to compile the source code, please use at least Visual Studio 2017 b
 ```C#
 int.TryParse(string input, out int output)
 ```
-The current UI is shown below. Only Chinese language is available.
+The current UI is shown below. Only Chinese version is provided.
 ![](https://pic1.zhimg.com/v2-5083aa67dcd561d973d28f2fc2484fe8_r.jpg)
 
 If you still find the UI unsatisfying, let me introduce my earlier lyric editor to you someday. 
