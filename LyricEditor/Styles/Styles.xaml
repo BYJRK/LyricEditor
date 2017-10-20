@@ -210,7 +210,6 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Width" Value="32"/>
-        <Setter Property="Height" Value="32"/>
         <Setter Property="Padding" Value="1"/>
         <Setter Property="Margin" Value="3"/>
         <Setter Property="Background" Value="{StaticResource RegularButton.Light}"/>
@@ -235,9 +234,6 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{StaticResource RegularButton.Normal}"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="true">
                             <Setter TargetName="border" Property="Background" Value="{StaticResource RegularButton.Normal}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -307,13 +303,33 @@
     <Style x:Key="ToolButton" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Padding" Value="3"/>
+        <Setter Property="Padding" Value="4"/>
         <Setter Property="Height" Value="{Binding RelativeSource={RelativeSource Self},Path=Width}"/>
         <Style.Resources>
             <Style TargetType="{x:Type Image}">
                 <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant"/>
             </Style>
         </Style.Resources>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Button.MouseEnter">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard TargetProperty="Padding">
+                            <ThicknessAnimation From="4" To="1" Duration="0:0:0.25"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="Button.MouseLeave">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard TargetProperty="Padding">
+                            <ThicknessAnimation From="1" To="4" Duration="0:0:0.25"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

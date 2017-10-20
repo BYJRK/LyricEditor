@@ -237,6 +237,7 @@ namespace LyricEditor.Lyric
             {
                 if (line.LrcTime is null) continue;
                 line.LrcTime += offset;
+                if (line.LrcTime < TimeSpan.Zero) line.LrcTime = TimeSpan.Zero;
             }
             UpdateLrcList(list);
         }

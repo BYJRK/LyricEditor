@@ -46,11 +46,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <!--为上方控件添加一个阴影效果-->
         <Border Grid.ColumnSpan="3" Background="White">
             <Border.Effect>
                 <DropShadowEffect ShadowDepth="0"/>
             </Border.Effect>
-
         </Border>
 
         <!--菜单栏-->
@@ -277,7 +277,6 @@
                 <Style BasedOn="{StaticResource ToolButton}" TargetType="Button">
                     <Setter Property="Width" Value="32"/>
                     <Setter Property="Margin" Value="0,3"/>
-                    <Setter Property="Padding" Value="3"/>
                 </Style>
             </StackPanel.Resources>
             <Button Name="FlagButton" Margin="0,4,0,10" Click="SetTime_Click">
@@ -342,23 +341,49 @@
                     </Button.ToolTip>
                     <Image Source="Icons/ToolButtonIcons/delete1.png"/>
                 </Button>
-                <Button Click="MoveUp_Click" Padding="4">
+                <Button Click="MoveUp_Click">
                     <Button.ToolTip>
                         将所选歌词行上移
                     </Button.ToolTip>
-                    <Image Source="Icons/ToolButtonIcons/Navigate-up.png"/>
+                    <Image Margin="1" Source="Icons/ToolButtonIcons/Navigate-up.png"/>
                 </Button>
-                <Button Click="MoveDown_Click" Padding="4">
+                <Button Click="MoveDown_Click">
                     <Button.ToolTip>
                         将所选歌词行下移
                     </Button.ToolTip>
-                    <Image Source="Icons/ToolButtonIcons/Navigate-down.png"/>
+                    <Image Margin="1" Source="Icons/ToolButtonIcons/Navigate-down.png"/>
                 </Button>
             </StackPanel>
         </StackPanel>
 
         <!--中央区域-->
-        <UserControl Margin="5,5,0,0" Grid.Column="1" Grid.Row="1" Name="LrcPanelContainer">
+        <UserControl Name="LrcPanelContainer"
+                     Margin="5,5,0,0"
+                     Background="White"
+                     Grid.Column="1" Grid.Row="1">
+            <UserControl.Effect>
+                <DropShadowEffect x:Name="UserControlDropShadow" ShadowDepth="0" BlurRadius="0"/>
+            </UserControl.Effect>
+            <UserControl.Triggers>
+                <EventTrigger RoutedEvent="UserControl.MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard TargetName="UserControlDropShadow" TargetProperty="BlurRadius">
+                                <DoubleAnimation From="0" To="6" Duration="0:0:0:0.5"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="UserControl.MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard TargetName="UserControlDropShadow" TargetProperty="BlurRadius">
+                                <DoubleAnimation From="6" To="0" Duration="0:0:0:0.5"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </UserControl.Triggers>
             <uc:LrcLineView/>
         </UserControl>
 
