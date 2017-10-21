@@ -160,6 +160,9 @@
 
             <!--播放按钮-->
             <Border Padding="5" Margin="0,5" CornerRadius="10" Background="WhiteSmoke">
+                <Border.Effect>
+                    <DropShadowEffect x:Name="PlayButtonPanelDropShadow" ShadowDepth="0"/>
+                </Border.Effect>
                 <StackPanel>
                     <Grid HorizontalAlignment="Center">
                         <Grid.ColumnDefinitions>
@@ -357,19 +360,18 @@
         </StackPanel>
 
         <!--中央区域-->
-        <UserControl Name="LrcPanelContainer"
-                     Margin="5,5,0,0"
-                     Background="White"
-                     Grid.Column="1" Grid.Row="1">
-            <UserControl.Effect>
+        <Border Grid.Column="1" Grid.Row="1" Background="White" Margin="5">
+            <Border.Effect>
                 <DropShadowEffect x:Name="UserControlDropShadow" ShadowDepth="0" BlurRadius="0"/>
-            </UserControl.Effect>
+            </Border.Effect>
+        </Border>
+        <UserControl Name="LrcPanelContainer" Grid.Column="1" Grid.Row="1" Background="White" Margin="5">
             <UserControl.Triggers>
                 <EventTrigger RoutedEvent="UserControl.MouseEnter">
                     <EventTrigger.Actions>
                         <BeginStoryboard>
                             <Storyboard TargetName="UserControlDropShadow" TargetProperty="BlurRadius">
-                                <DoubleAnimation From="0" To="6" Duration="0:0:0:0.5"/>
+                                <DoubleAnimation From="0" To="6" Duration="0:0:0:0.25"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger.Actions>
@@ -378,7 +380,7 @@
                     <EventTrigger.Actions>
                         <BeginStoryboard>
                             <Storyboard TargetName="UserControlDropShadow" TargetProperty="BlurRadius">
-                                <DoubleAnimation From="6" To="0" Duration="0:0:0:0.5"/>
+                                <DoubleAnimation From="6" To="0" Duration="0:0:0:0.25"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger.Actions>

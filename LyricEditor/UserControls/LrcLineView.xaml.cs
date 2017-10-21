@@ -198,7 +198,6 @@ namespace LyricEditor.UserControls
             if (!ReachEnd)
             {
                 SelectedIndex++;
-                LrcLinePanel.ScrollIntoView(LrcLinePanel.SelectedItem);
             }
             else
             {
@@ -206,6 +205,7 @@ namespace LyricEditor.UserControls
             }
 
             RefreshLrcPanel();
+            LrcLinePanel.ScrollIntoView(LrcLinePanel.SelectedItem);
         }
         public void ResetAllTime()
         {

@@ -7,13 +7,13 @@
              mc:Ignorable="d"
              xmlns:lrc="clr-namespace:LyricEditor.Lyric"
              d:DesignHeight="305" d:DesignWidth="600">
-    <Grid Margin="0,0,0,5">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
-        <ListView Name="LrcLinePanel" Margin="0,0,0,5" FontSize="16" SelectionMode="Single"
+        <ListView Name="LrcLinePanel" Margin="0" BorderThickness="1,1,1,0" FontSize="16" SelectionMode="Single"
                   MouseDoubleClick="LrcLinePanel_MouseDoubleClick"
                   KeyUp="LrcLinePanel_KeyUp"
                   SelectionChanged="LrcLinePanel_SelectionChanged">
