@@ -24,14 +24,29 @@
             </ResourceDictionary.MergedDictionaries>
 
             <RoutedUICommand x:Key="SetTimeShortcut"/>
+            <RoutedUICommand x:Key="HelpShortcut"/>
+            <RoutedUICommand x:Key="PlayShortcut"/>
+            <RoutedUICommand x:Key="UndoShortcut"/>
+            <RoutedUICommand x:Key="RedoShortcut"/>
+            <RoutedUICommand x:Key="InsertShortcut"/>
 
         </ResourceDictionary>
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Command="{StaticResource SetTimeShortcut}" Gesture="F5"/>
+        <KeyBinding Command="{StaticResource HelpShortcut}" Gesture="F1"/>
+        <KeyBinding Command="{StaticResource PlayShortcut}" Gesture="Ctrl+P"/>
+        <KeyBinding Command="{StaticResource UndoShortcut}" Gesture="Ctrl+Z"/>
+        <KeyBinding Command="{StaticResource RedoShortcut}" Gesture="Ctrl+Y"/>
+        <KeyBinding Command="{StaticResource InsertShortcut}" Gesture="Insert"/>
     </Window.InputBindings>
     <Window.CommandBindings>
         <CommandBinding Command="{StaticResource SetTimeShortcut}" Executed="SetTimeShortcut_Executed"/>
+        <CommandBinding Command="{StaticResource HelpShortcut}" Executed="HelpShortcut_Executed"/>
+        <CommandBinding Command="{StaticResource PlayShortcut}" Executed="PlayShortcut_Executed"/>
+        <CommandBinding Command="{StaticResource UndoShortcut}" Executed="UndoShortcut_Executed"/>
+        <CommandBinding Command="{StaticResource RedoShortcut}" Executed="RedoShortcut_Executed"/>
+        <CommandBinding Command="{StaticResource InsertShortcut}" Executed="InsertShortcut_Executed"/>
     </Window.CommandBindings>
 
     <Grid>
@@ -180,32 +195,32 @@
                             </Style>
                         </Grid.Resources>
 
-                        <Button Name="ShortShiftLeft"
+                        <Button Name="ShortShiftLeft" ToolTip="小幅度快退"
                                 Click="TimeShift_Click">
                             <Image Source="Icons/MediaButtonIcons/NavigateLeft.png" Margin="-2,0,0,0"/>
                         </Button>
-                        <Button Name="PlayButton"
+                        <Button Name="PlayButton" ToolTip="播放/暂停"
                                 Click="PlayButton_Click"
                                 Grid.Column="1">
                             <Image Source="Icons/MediaButtonIcons/Start.png" Margin="2,0,0,0"/>
                         </Button>
-                        <Button Name="ShortShiftRight"
+                        <Button Name="ShortShiftRight" ToolTip="小幅度快进"
                                 Click="TimeShift_Click"
                                 Grid.Column="2">
                             <Image Source="Icons/MediaButtonIcons/NavigateRight.png" Margin="2,0,0,0"/>
                         </Button>
-                        <Button Name="LongShiftLeft"
+                        <Button Name="LongShiftLeft" ToolTip="大幅度快退"
                                 Click="TimeShift_Click"
                                 Grid.Row="1">
                             <Image Source="Icons/MediaButtonIcons/FastLeft.png" Margin="-2,0,0,0"/>
                         </Button>
-                        <Button Name="StopButton"
+                        <Button Name="StopButton" ToolTip="停止"
                                 Click="StopButton_Click"
                                 Grid.Row="1"
                                 Grid.Column="1">
                             <Image Source="Icons/MediaButtonIcons/Stop.png"/>
                         </Button>
-                        <Button Name="LongShiftRight"
+                        <Button Name="LongShiftRight" ToolTip="大幅度快进"
                                 Click="TimeShift_Click"
                                 Grid.Row="1"
                                 Grid.Column="2">
@@ -220,8 +235,8 @@
                             <ColumnDefinition Width="18"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30" ToolTip="音量"/>
+                            <RowDefinition Height="30" ToolTip="播放速度"/>
                         </Grid.RowDefinitions>
                         <Grid.Resources>
                             <Style TargetType="{x:Type TextBlock}">
@@ -260,7 +275,7 @@
         </StackPanel>
 
         <!--时间轴-->
-        <Grid Grid.Column="1" Margin="5,5,0,5">
+        <Grid Grid.Column="1" Margin="5">
             <Grid.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="FontSize" Value="18"/>
@@ -282,10 +297,10 @@
                     <Setter Property="Margin" Value="0,3"/>
                 </Style>
             </StackPanel.Resources>
-            <Button Name="FlagButton" Margin="0,4,0,10" Click="SetTime_Click">
-                <Button.ToolTip>
-                    将当前播放位置应用到选中的歌词行
-                </Button.ToolTip>
+            <Button Name="FlagButton" 
+                    Margin="0,4,0,10" 
+                    ToolTip="将当前播放位置应用到选中的歌词行"
+                    Click="SetTime_Click">
                 <Image Source="Icons/ToolButtonIcons/Flag-red.png"/>
             </Button>
             <Button Margin="0,0,0,10" Click="SwitchLrcPanel_Click">
@@ -359,6 +374,15 @@
             </StackPanel>
         </StackPanel>
 
+        <Button Click="Info_Click" Grid.Row="1" Grid.Column="2"
+                VerticalAlignment="Bottom"
+                Style="{StaticResource ToolButton}">
+            <Button.ToolTip>
+                软件信息
+            </Button.ToolTip>
+            <Image Margin="1" Source="Icons/ToolButtonIcons/information.png"/>
+        </Button>
+
         <!--中央区域-->
         <Border Grid.Column="1" Grid.Row="1" Background="White" Margin="5">
             <Border.Effect>
@@ -388,6 +412,5 @@
             </UserControl.Triggers>
             <uc:LrcLineView/>
         </UserControl>
-
     </Grid>
 </Window>

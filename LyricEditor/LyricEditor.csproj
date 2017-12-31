@@ -217,5 +217,13 @@
   <ItemGroup>
     <Resource Include="Icons\ToolButtonIcons\delete.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\ToolButtonIcons\information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="info.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

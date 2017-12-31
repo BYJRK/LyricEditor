@@ -1,23 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Threading;
+using System.Reflection;
+using System.Configuration;
 using LyricEditor.UserControls;
 using LyricEditor.Lyric;
-using System.Configuration;
 using Win32 = System.Windows.Forms;
-using System.Windows.Threading;
 
 namespace LyricEditor
 {
@@ -616,7 +611,7 @@ namespace LyricEditor
         /// </summary>
         private void ClearAll_Click(object sender, RoutedEventArgs e)
         {
-            switch(CurrentLrcPanel)
+            switch (CurrentLrcPanel)
             {
                 case LrcPanelType.LrcLinePanel:
                     Manager.Clear();
@@ -628,13 +623,55 @@ namespace LyricEditor
                     break;
             }
         }
+        /// <summary>
+        /// 软件信息
+        /// </summary>
+        private void Info_Click(object sender, RoutedEventArgs e)
+        {
+            var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("LyricEditor.info.txt");
+            using (StreamReader sr = new StreamReader(stream))
+            {
+                MessageBox.Show(sr.ReadToEnd(), "软件相关", MessageBoxButton.OKCancel);
+            }
+        }
 
         #endregion
+
+        #region 快捷键
 
         private void SetTimeShortcut_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             SetTime_Click(this, null);
         }
 
+        private void HelpShortcut_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Info_Click(this, null);
+        }
+
+        private void PlayShortcut_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            PlayButton_Click(this, null);
+        }
+
+        private void UndoShortcut_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Undo_Click(this, null);
+        }
+
+        private void RedoShortcut_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Redo_Click(this, null);
+        }
+
+        private void InsertShortcut_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (CurrentLrcPanel == LrcPanelType.LrcLinePanel)
+            {
+                AddNewLine_Click(this, null);
+            }
+        }
+
+        #endregion
     }
 }
