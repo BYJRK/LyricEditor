@@ -19,3 +19,5 @@ If you still find the UI unsatisfying, let me introduce my earlier lyric editor 
 如果你想要编译源代码，请使用不低于 `Visual Studio 2017` 的版本，因为代码中个别地方使用了 `C# 7.0` 的新特性。
 
 如果你觉得还是不够好看的话，一定是因为你没见过以前的版本。
+
+知乎链接：[歌词制作器 LyricEditor 第二版发布及使用说明](https://zhuanlan.zhihu.com/p/32588196)
