@@ -7,6 +7,7 @@
              xmlns:conv="clr-namespace:LyricEditor.Converters"
              mc:Ignorable="d" 
              FontSize="16"
+             FontFamily="{StaticResource LyricFont}"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>

@@ -16,6 +16,7 @@
         <ListView Name="LrcLinePanel" Margin="0" BorderThickness="1,1,1,0" FontSize="16" SelectionMode="Single"
                   MouseDoubleClick="LrcLinePanel_MouseDoubleClick"
                   KeyUp="LrcLinePanel_KeyUp"
+                  FontFamily="{StaticResource LyricFont}"
                   SelectionChanged="LrcLinePanel_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -52,6 +53,7 @@
                 <Style TargetType="TextBox">
                     <Setter Property="FontSize" Value="16"/>
                     <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="FontFamily" Value="{StaticResource LyricFont}"/>
                 </Style>
             </Grid.Resources>
             <TextBox Name="CurrentTimeText" 

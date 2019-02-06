@@ -285,7 +285,7 @@
             <ProgressBar Name="TimeBackground" Value="0.5" Foreground="LightBlue" Background="White" Maximum="1"/>
             <TextBlock Name="CurrentTimeText" HorizontalAlignment="Left" FontWeight="Normal" Text="00:00" Margin="5,0,0,0"/>
             <TextBlock Name="TotalTimeText" HorizontalAlignment="Right" FontWeight="Normal" Text="01:00" Margin="0,0,5,0"/>
-            <TextBlock Name="CurrentLrcText" HorizontalAlignment="Center" VerticalAlignment="Center" Text="一条大河波浪宽" Foreground="#FF9E4848" TextDecorations="{x:Null}" FontFamily="Microsoft YaHei"/>
+            <TextBlock Name="CurrentLrcText" HorizontalAlignment="Center" VerticalAlignment="Center" Text="一条大河波浪宽" Foreground="#FF9E4848" TextDecorations="{x:Null}" FontFamily="{StaticResource LyricFont}"/>
             <Border Name="TimeClickBar" BorderThickness="1" BorderBrush="LightGray" Background="Transparent" MouseDown="TimeClickBar_MouseDown"/>
         </Grid>
 
