@@ -334,6 +334,7 @@ namespace LyricEditor
             var totalTime = MediaPlayer.NaturalDuration.TimeSpan;
             TotalTimeText.Text = $"{totalTime.Minutes:00}:{totalTime.Seconds:00}";
             CurrentTimeText.Text = "00:00";
+            Pause();
         }
 
         /// <summary>
