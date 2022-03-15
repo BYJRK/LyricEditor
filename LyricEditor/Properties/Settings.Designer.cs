@@ -22,5 +22,41 @@ namespace LyricEditor.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-150")]
+        public int TimeOffset {
+            get {
+                return ((int)(this["TimeOffset"]));
+            }
+            set {
+                this["TimeOffset"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int ShortShift {
+            get {
+                return ((int)(this["ShortShift"]));
+            }
+            set {
+                this["ShortShift"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int LongShift {
+            get {
+                return ((int)(this["LongShift"]));
+            }
+            set {
+                this["LongShift"] = value;
+            }
+        }
     }
 }
