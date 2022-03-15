@@ -72,7 +72,7 @@
         </Border>
 
         <!-- 菜单栏 -->
-        <Menu Margin="5" Background="White">
+        <Menu Margin="5" Background="White" FontFamily="{StaticResource LyricFont}">
             <MenuItem Header="文件" Style="{StaticResource MenuItemHeaderStyle}">
                 <MenuItem.Icon>
                     <Image Source="Icons/MenuIcons/paper-plane.png" />

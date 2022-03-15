@@ -21,7 +21,9 @@
         <TextBox Name="LrcTextPanel" TextWrapping="Wrap"
                  AcceptsReturn="True" AcceptsTab="True" Padding="5" 
                  BorderThickness="1,1,1,0"
-                 VerticalScrollBarVisibility="Auto"/>
+                 d:Text="一条大河波浪宽"
+                 VerticalScrollBarVisibility="Auto">
+        </TextBox>
 
         <ToggleButton Name="ToolToggle" Background="White" BorderBrush="#FFABADB3" Grid.Row="1" IsChecked="False"/>
         <Border Grid.Row="2" BorderThickness="0" BorderBrush="#FFABADB3" Background="White">
