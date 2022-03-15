@@ -33,7 +33,6 @@ namespace LyricEditor
 
             LrcLinePanel = (LrcLineView)LrcPanelContainer.Content;
             LrcLinePanel.MyMainWindow = this;
-            LrcLinePanel.TimeOffset = new TimeSpan(0, 0, Properties.Settings.Default.TimeOffset);
             LrcTextPanel = new LrcTextView();
             LrcTextPanel.MyMainWindow = this;
 
@@ -41,10 +40,6 @@ namespace LyricEditor
             Timer.Tick += new EventHandler(Timer_Tick);
             Timer.Interval = new TimeSpan(0, 0, 0, 0, 20);
             Timer.Start();
-
-            ShortTimeShift = new TimeSpan(0, 0, Properties.Settings.Default.ShortShift);
-            LongTimeShift = new TimeSpan(0, 0, Properties.Settings.Default.LongShift);
-
         }
 
         #region 成员变量
@@ -63,8 +58,8 @@ namespace LyricEditor
             get => LrcLinePanel.Manager;
         }
 
-        public TimeSpan ShortTimeShift { get; private set; }
-        public TimeSpan LongTimeShift { get; private set; }
+        public TimeSpan ShortTimeShift { get; private set; } = new TimeSpan(0, 0, 2);
+        public TimeSpan LongTimeShift { get; private set; } = new TimeSpan(0, 0, 5);
 
         private string FileName;
 
@@ -387,8 +382,6 @@ namespace LyricEditor
             if (int.TryParse(TimeOffset.Text, out int offset))
             {
                 LrcLinePanel.TimeOffset = new TimeSpan(0, 0, 0, 0, -offset);
-                Properties.Settings.Default.TimeOffset = offset;
-                Properties.Settings.Default.Save();
             }
         }
         private void TimeShift_TextChanged(object sender, TextChangedEventArgs e)
@@ -402,14 +395,10 @@ namespace LyricEditor
                 {
                     case "ShortShift":
                         ShortTimeShift = new TimeSpan(0, 0, value);
-                        Properties.Settings.Default.ShortShift = value;
-                        Properties.Settings.Default.Save();
                         break;
 
                     case "LongShift":
                         LongTimeShift = new TimeSpan(0, 0, value);
-                        Properties.Settings.Default.LongShift = value;
-                        Properties.Settings.Default.Save();
                         break;
                 }
             }
