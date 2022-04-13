@@ -16,6 +16,7 @@
 
         <ListView Name="LrcLinePanel"
                   Margin="0"
+                  x:FieldModifier="public"
                   BorderThickness="1,1,1,0"
                   FontSize="16"
                   SelectionMode="Single"
@@ -61,10 +62,10 @@
                 </Style>
             </DockPanel.Resources>
             <TextBox Name="CurrentTimeText"
-                     Padding="7,0,0,0"
-                     DockPanel.Dock="Left"
                      Width="93"
+                     Padding="7,0,0,0"
                      HorizontalContentAlignment="Left"
+                     DockPanel.Dock="Left"
                      TextChanged="CurrentTime_Changed"
                      MouseWheel="CurrentTimeText_MouseWheel"
                      BorderThickness="1,1,2,1"

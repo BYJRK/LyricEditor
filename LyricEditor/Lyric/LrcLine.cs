@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace LyricEditor.Lyric
 {
@@ -14,11 +8,13 @@ namespace LyricEditor.Lyric
 
         public TimeSpan? LrcTime { get; set; }
 
+        public static bool IsApprox = false;
+
         public string LrcTimeText
         {
             get
             {
-                return LrcTime.HasValue ? LrcHelper.ToShortString(LrcTime.Value) : string.Empty;
+                return LrcTime.HasValue ? LrcHelper.ToShortString(LrcTime.Value, IsApprox) : string.Empty;
             }
             set
             {
@@ -130,7 +126,7 @@ namespace LyricEditor.Lyric
             // 正常歌词或空白歌词
             if (LrcTime.HasValue)
             {
-                return $"[{LrcHelper.ToShortString(LrcTime.Value)}]{LrcText}";
+                return $"[{LrcHelper.ToShortString(LrcTime.Value, IsApprox)}]{LrcText}";
             }
             // 歌曲信息
             else if (!string.IsNullOrWhiteSpace(LrcText))
@@ -149,7 +145,7 @@ namespace LyricEditor.Lyric
             if (!LrcTime.HasValue) return -1;
             if (!other.LrcTime.HasValue) return 1;
             // 正常的歌词按照时间顺序进行排列
-            return  LrcTime.Value.CompareTo(other.LrcTime.Value);
+            return LrcTime.Value.CompareTo(other.LrcTime.Value);
         }
     }
 }

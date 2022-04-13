@@ -158,7 +158,7 @@ namespace LyricEditor.UserControls
         /// </summary>
         private void LrcLinePanel_KeyUp(object sender, KeyEventArgs e)
         {
-            switch(e.Key)
+            switch (e.Key)
             {
                 case Key.Delete:
                     DeleteLine();
@@ -188,7 +188,8 @@ namespace LyricEditor.UserControls
             if (!Manager.LrcList[index].LrcTime.HasValue) return;
 
             time += TimeOffset;
-            if (ApproxTime) time = GetApproxTime(time);
+            if (time < TimeSpan.Zero)
+                time = TimeSpan.Zero;
 
             // 更新选中行的时间
             Manager.LrcList[index].LrcTime = time;

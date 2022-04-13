@@ -105,13 +105,13 @@
                               StaysOpenOnClick="True"
                               ToolTip="如果勾选，则默认导出 UTF-8 的文本文件（推荐）；否则将根据系统语言选择对应的 ANSI 编码" />
                     <MenuItem Name="ApproxTime"
-                              Header="时间取近似值"
+                              Header="时间取两位近似值"
                               IsCheckable="True"
                               IsChecked="False"
                               StaysOpenOnClick="True"
                               Checked="Settings_Checked"
                               Unchecked="Settings_Checked"
-                              ToolTip="如果勾选，则会在更新歌词行时间时四舍五入保留毫秒数的前两位（除了好看，有什么意义吗？）" />
+                              ToolTip="如果勾选，则会在更新歌词行时间时四舍五入保留毫秒数的前两位" />
                     <MenuItem StaysOpenOnClick="True" ToolTip="输入奇怪的非数字内容的话，将会使用默认值 -150 的哟">
                         <MenuItem.Header>
                             <StackPanel Margin="0,0,-12,0" Orientation="Horizontal">
@@ -125,7 +125,7 @@
                             </StackPanel>
                         </MenuItem.Header>
                     </MenuItem>
-                    <MenuItem StaysOpenOnClick="True" ToolTip="输入奇怪的非数字内容的话，将会使用默认值 2,5 的哟">
+                    <MenuItem StaysOpenOnClick="True" ToolTip="输入奇怪的非数字内容的话，将会使用默认值 2,5">
                         <MenuItem.Header>
                             <StackPanel Margin="0,0,-12,0" Orientation="Horizontal">
                                 <TextBlock Text="快进快退速度(s)" />

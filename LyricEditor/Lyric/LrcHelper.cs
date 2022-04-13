@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LyricEditor.Lyric
 {
@@ -10,6 +6,8 @@ namespace LyricEditor.Lyric
     {
         public static TimeSpan ParseTimeSpan(string s)
         {
+            if (s.Split('.')[1].Length == 2)
+                s += '0';
             return TimeSpan.Parse("00:" + s);
         }
         public static bool TryParseTimeSpan(string s, out TimeSpan t)
@@ -25,13 +23,17 @@ namespace LyricEditor.Lyric
                 return false;
             }
         }
-        public static string ToShortString(this TimeSpan ts)
+        public static string ToShortString(this TimeSpan ts, bool isApprox = false)
         {
-            return $"{ts.Minutes:00}:{ts.Seconds:00}.{ts.Milliseconds:000}";
-        }
-        public static string ToString(this TimeSpan ts)
-        {
-            return ToShortString(ts);
+            if (isApprox)
+            {
+                var mil = ts.Milliseconds;
+                if (mil >= 100)
+                    mil /= 10;
+                return $"{ts.Minutes:00}:{ts.Seconds:00}.{mil:00}";
+            }
+            else
+                return $"{ts.Minutes:00}:{ts.Seconds:00}.{ts.Milliseconds:000}";
         }
     }
 }
