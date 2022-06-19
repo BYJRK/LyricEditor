@@ -57,6 +57,11 @@ namespace LyricEditor.UserControls
                 InputBoxResult = true;
                 Close();
             }
+            else if (e.Key == Key.Escape)
+            {
+                InputBoxResult = false;
+                Close();
+            }
         }
     }
 }

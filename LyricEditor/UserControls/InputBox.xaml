@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         SizeToContent="Height"
         WindowStartupLocation="CenterOwner"
-        Width="200"
+        Width="250"
         FontSize="16"
         Title="输入窗口" WindowStyle="ToolWindow">
     <StackPanel>
