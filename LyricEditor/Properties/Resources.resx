@@ -46,7 +46,7 @@
     
     mimetype: application/x-microsoft.net.object.binary.base64
     value   : The object must be serialized with 
-            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
     
     mimetype: application/x-microsoft.net.object.soap.base64
@@ -60,6 +60,7 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
@@ -68,9 +69,10 @@
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="name" use="required" type="xsd:string" />
               <xsd:attribute name="type" type="xsd:string" />
               <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
@@ -85,9 +87,10 @@
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
               <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
               <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
@@ -109,9 +112,44 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Info" xml:space="preserve">
+    <value>当前版本：2.0.4
+更新日期：2022/4/13
+====================================
+请在作者的知乎专栏关注软件的【使用说明】。
+
+如果您在使用过程中发现了任何问题，或者有好的意见或建议，您可以通过以下方式联系我：
+
+1、发送邮件至 suomikoto@outlook.com
+2、在知乎的相关专栏文章下方评论
+3、在 GitHub repo 中添加 issue
+
+随时欢迎您的反馈！
+
+====================================
+版本信息：
+
+2.0.0 (2018/1/1)
+1、重写 UI，使界面更加能忍；
+2、添加新功能：歌词编辑模式。可以直接查看当前的歌词对应的纯文本；
+3、添加细节：展示音频文件的封面，以及一些无聊的界面动画；
+4、去除意义不大的多行选择功能（基本用不着，真存在使用情景，歌词编辑模式一般也能解决）；
+5、优化下方的编辑区域，上面的歌词列表可以实时更新编辑的文本，不必再按 Enter 键确认修改。
+
+2.0.4（2022/4/13）
+1、调整近似时间的机制，现在将只显示两位毫秒数字；
+2、微调 UI 描述文本。
+
+2.1.0（2022/6/19）
+1、使用系统默认字体，减小软件体积；
+2、修复毫秒截取机制的bug，现在可以正确进行时间整体平移；
+3、界面文字调整。
+
+【点击确定，打开作者的知乎相关文章】</value>
+  </data>
 </root>

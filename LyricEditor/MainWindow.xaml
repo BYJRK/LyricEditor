@@ -112,7 +112,7 @@
                               Checked="Settings_Checked"
                               Unchecked="Settings_Checked"
                               ToolTip="如果勾选，则会在更新歌词行时间时截取毫秒数的前两位" />
-                    <MenuItem StaysOpenOnClick="True" ToolTip="输入奇怪的非数字内容的话，将会使用默认值 -150">
+                    <MenuItem StaysOpenOnClick="True" ToolTip="用来补偿因为反应速度而导致的时间戳的偏差">
                         <MenuItem.Header>
                             <StackPanel Margin="0,0,-12,0" Orientation="Horizontal">
                                 <TextBlock Text="时间偏差(ms)" />
@@ -121,11 +121,12 @@
                                          Width="35"
                                          Text="150"
                                          BorderThickness="0"
+                                         InputMethod.IsInputMethodEnabled="False"
                                          TextChanged="TimeOffset_TextChanged" />
                             </StackPanel>
                         </MenuItem.Header>
                     </MenuItem>
-                    <MenuItem StaysOpenOnClick="True" ToolTip="输入奇怪的非数字内容的话，将会使用默认值 2,5">
+                    <MenuItem StaysOpenOnClick="True" ToolTip="设置界面上的前进和快进（及后退）对应的时间跨度">
                         <MenuItem.Header>
                             <StackPanel Margin="0,0,-12,0" Orientation="Horizontal">
                                 <TextBlock Text="快进快退速度(s)" />
@@ -134,12 +135,14 @@
                                          Text="2"
                                          BorderThickness="0"
                                          MaxLines="1"
+                                         InputMethod.IsInputMethodEnabled="False"
                                          TextChanged="TimeShift_TextChanged" />
                                 <TextBlock Text="," />
                                 <TextBox Name="LongShift"
                                          Text="5"
                                          BorderThickness="0"
                                          MaxLines="1"
+                                         InputMethod.IsInputMethodEnabled="False"
                                          TextChanged="TimeShift_TextChanged" />
                             </StackPanel>
                         </MenuItem.Header>

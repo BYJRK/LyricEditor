@@ -13,6 +13,7 @@ using System.Configuration;
 using LyricEditor.UserControls;
 using LyricEditor.Lyric;
 using Win32 = System.Windows.Forms;
+using System.Diagnostics;
 
 namespace LyricEditor
 {
@@ -634,11 +635,14 @@ namespace LyricEditor
         /// </summary>
         private void Info_Click(object sender, RoutedEventArgs e)
         {
-            var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("LyricEditor.info.txt");
-            using (StreamReader sr = new StreamReader(stream))
-            {
-                MessageBox.Show(sr.ReadToEnd(), "软件相关", MessageBoxButton.OKCancel);
-            }
+            //var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("LyricEditor.info.txt");
+            //using (StreamReader sr = new StreamReader(stream))
+            //{
+            //    MessageBox.Show(sr.ReadToEnd(), "软件相关", MessageBoxButton.OKCancel);
+            //}
+            var res = MessageBox.Show(Properties.Resources.Info, "相关信息", MessageBoxButton.OKCancel);
+            if (res == MessageBoxResult.OK)
+                Process.Start("https://zhuanlan.zhihu.com/p/32588196");
         }
 
         #endregion
