@@ -421,7 +421,7 @@ namespace LyricEditor
         /// </summary>
         private void ShiftAllTime_Click(object sender, RoutedEventArgs e)
         {
-            string str = InputBox.Show(this, "请输入时间偏移量(s)：");
+            string str = InputBox.Show(this, "输入", "请输入时间偏移量(s)：");
             if (double.TryParse(str, out double offset))
             {
                 LrcLinePanel.ShiftAllTime(new TimeSpan(0, 0, 0, 0, (int)(offset * 1000)));

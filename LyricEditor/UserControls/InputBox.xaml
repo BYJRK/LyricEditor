@@ -11,7 +11,7 @@
         FontSize="16"
         Title="输入窗口" WindowStyle="ToolWindow">
     <StackPanel>
-        <TextBlock Name="Label" Text="提示信息" Margin="5,5,5,0" TextWrapping="Wrap"/>
+        <TextBlock Name="Message" Text="提示信息" Margin="5,5,5,0" TextWrapping="Wrap"/>
         <TextBox Name="Input" 
                  Height="30" 
                  Text="默认信息" 

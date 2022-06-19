@@ -26,11 +26,12 @@ namespace LyricEditor.UserControls
 
         public bool InputBoxResult { get; private set; }
 
-        public static string Show(Window owner, string Title, string DefaultText = "")
+        public static string Show(Window owner, string title, string message, string DefaultText = "")
         {
             InputBox box = new InputBox();
             box.Owner = owner;
-            box.Title = Title;
+            box.Title = title;
+            box.Message.Text = message;
             box.Input.Text = DefaultText;
             box.Input.Focus();
             box.Input.SelectAll();
@@ -51,7 +52,7 @@ namespace LyricEditor.UserControls
 
         private void Input_KeyUp(object sender, KeyEventArgs e)
         {
-            if(e.Key==Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 InputBoxResult = true;
                 Close();
