@@ -8,13 +8,13 @@ namespace LyricEditor.Lyric
 
         public TimeSpan? LrcTime { get; set; }
 
-        public static bool IsApprox = false;
+        public static bool IsShort = false;
 
         public string LrcTimeText
         {
             get
             {
-                return LrcTime.HasValue ? LrcHelper.ToShortString(LrcTime.Value, IsApprox) : string.Empty;
+                return LrcTime.HasValue ? LrcHelper.ToShortString(LrcTime.Value, IsShort) : string.Empty;
             }
             set
             {
@@ -58,6 +58,9 @@ namespace LyricEditor.Lyric
             LrcText = string.Empty;
         }
 
+        /// <summary>
+        /// 将单行的歌词文本进行解析
+        /// </summary>
         public static LrcLine Parse(string line)
         {
             // 歌曲信息|[al:album]      | Time = null, Content = Info
@@ -105,7 +108,7 @@ namespace LyricEditor.Lyric
         public static readonly LrcLine Empty = new LrcLine();
 
         /// <summary>
-        /// 判断是否为多行歌词
+        /// 判断是否为多行歌词（通过检查是否有超过一个左方括号）
         /// </summary>
         public static bool CheckMultiLine(string line)
         {
@@ -126,7 +129,7 @@ namespace LyricEditor.Lyric
             // 正常歌词或空白歌词
             if (LrcTime.HasValue)
             {
-                return $"[{LrcHelper.ToShortString(LrcTime.Value, IsApprox)}]{LrcText}";
+                return $"[{LrcHelper.ToShortString(LrcTime.Value, IsShort)}]{LrcText}";
             }
             // 歌曲信息
             else if (!string.IsNullOrWhiteSpace(LrcText))

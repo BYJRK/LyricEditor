@@ -194,7 +194,7 @@ namespace LyricEditor
             // 导出 UTF-8
             ExportUTF8.IsChecked = bool.Parse(ConfigurationManager.AppSettings["ExportUTF8"]);
             // 时间取近似值
-            LrcLinePanel.ApproxTime = LrcLine.IsApprox = ApproxTime.IsChecked = bool.Parse(ConfigurationManager.AppSettings["ApproxTime"]);
+            LrcLinePanel.ApproxTime = LrcLine.IsShort = ApproxTime.IsChecked = bool.Parse(ConfigurationManager.AppSettings["ApproxTime"]);
             // 时间偏差（改变 Text 会触发 TextChanged 事件，下同）
             TimeOffset.Text = ConfigurationManager.AppSettings["TimeOffset"];
             //LrcLinePanel.TimeOffset = new TimeSpan(0, 0, 0, 0, -(int)double.Parse(TimeOffset.Text));
@@ -322,7 +322,7 @@ namespace LyricEditor
             {
                 case "ApproxTime":
                     LrcLinePanel.ApproxTime = item.IsChecked;
-                    LrcLine.IsApprox = item.IsChecked;
+                    LrcLine.IsShort = item.IsChecked;
                     if (LrcPanelContainer.Content is LrcLineView view)
                     {
                         view.LrcLinePanel.Items.Refresh();
