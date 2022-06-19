@@ -8,6 +8,6 @@
             <Setter Property="FontFamily" Value="Microsoft YaHei UI"/>
         </Style>
         <!--歌词字体-->
-        <FontFamily x:Key="LyricFont">pack://application:,,,/Fonts/#PingFang SC Bold</FontFamily>
+        <FontFamily x:Key="LyricFont">Microsoft Yahei UI</FontFamily>
     </Application.Resources>
 </Application>
