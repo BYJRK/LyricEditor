@@ -1,4 +1,8 @@
-﻿using System;
+﻿using LyricEditor.Lyric;
+using LyricEditor.UserControls;
+using System;
+using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,12 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using System.Reflection;
-using System.Configuration;
-using LyricEditor.UserControls;
-using LyricEditor.Lyric;
-using Win32 = System.Windows.Forms;
-using System.Diagnostics;
+using Forms = System.Windows.Forms;
 
 namespace LyricEditor
 {
@@ -64,7 +63,7 @@ namespace LyricEditor
 
         private string FileName;
 
-        private static string[] MediaExtensions = new string[] { ".mp3", ".wav", ".3gp", ".mp4", ".avi", ".wmv", ".wma", ".aac" };
+        private static string[] MediaExtensions = new string[] { ".mp3", ".wav", ".3gp", ".mp4", ".avi", ".wmv", ".wma", ".aac", ".flac" };
         private static string[] LyricExtensions = new string[] { ".lrc", ".txt" };
         private static string TempFileName = "temp.txt";
 
@@ -251,10 +250,10 @@ namespace LyricEditor
         /// </summary>
         private void ImportMedia_Click(object sender, RoutedEventArgs e)
         {
-            Win32.OpenFileDialog ofd = new Win32.OpenFileDialog();
+            Forms.OpenFileDialog ofd = new Forms.OpenFileDialog();
             ofd.Filter = "媒体文件|*.mp3;*.wav;*.3gp;*.mp4;*.avi;*.wmv;*.wma;*.aac|所有文件|*.*";
 
-            if (ofd.ShowDialog() == Win32.DialogResult.OK)
+            if (ofd.ShowDialog() == Forms.DialogResult.OK)
             {
                 ImportMedia(ofd.FileName);
                 FileName = ofd.FileName;
@@ -265,10 +264,10 @@ namespace LyricEditor
         /// </summary>
         private void ImportLyric_Click(object sender, RoutedEventArgs e)
         {
-            Win32.OpenFileDialog ofd = new Win32.OpenFileDialog();
+            Forms.OpenFileDialog ofd = new Forms.OpenFileDialog();
             ofd.Filter = "歌词文件|*.lrc;*.txt|所有文件|*.*";
 
-            if (ofd.ShowDialog() == Win32.DialogResult.OK)
+            if (ofd.ShowDialog() == Forms.DialogResult.OK)
             {
                 Manager.LoadFromFile(ofd.FileName);
                 UpdateLrcView();
@@ -280,7 +279,7 @@ namespace LyricEditor
         /// </summary>
         private void ExportLyric_Click(object sender, RoutedEventArgs e)
         {
-            Win32.SaveFileDialog ofd = new Win32.SaveFileDialog();
+            Forms.SaveFileDialog ofd = new Forms.SaveFileDialog();
             ofd.Filter = "歌词文件|*.lrc|文本文件|*.txt|所有文件|*.*";
 
             if (!string.IsNullOrEmpty(FileName))
@@ -288,7 +287,7 @@ namespace LyricEditor
                 ofd.FileName = System.IO.Path.GetFileNameWithoutExtension(FileName);
             }
 
-            if (ofd.ShowDialog() == Win32.DialogResult.OK)
+            if (ofd.ShowDialog() == Forms.DialogResult.OK)
             {
                 Encoding encoding = ExportUTF8.IsChecked ? Encoding.UTF8 : Encoding.Default;
                 using (var sw = new StreamWriter(new FileStream(ofd.FileName, FileMode.Create), encoding))
@@ -352,7 +351,7 @@ namespace LyricEditor
 
             foreach (var file in filePath)
             {
-                string ext = System.IO.Path.GetExtension(file).ToLower();
+                string ext = Path.GetExtension(file).ToLower();
                 if (MediaExtensions.Contains(ext))
                 {
                     ImportMedia(file);
@@ -635,11 +634,6 @@ namespace LyricEditor
         /// </summary>
         private void Info_Click(object sender, RoutedEventArgs e)
         {
-            //var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("LyricEditor.info.txt");
-            //using (StreamReader sr = new StreamReader(stream))
-            //{
-            //    MessageBox.Show(sr.ReadToEnd(), "软件相关", MessageBoxButton.OKCancel);
-            //}
             var res = MessageBox.Show(Properties.Resources.Info, "相关信息", MessageBoxButton.OKCancel);
             if (res == MessageBoxResult.OK)
                 Process.Start("https://zhuanlan.zhihu.com/p/32588196");

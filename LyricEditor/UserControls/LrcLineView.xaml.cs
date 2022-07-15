@@ -25,6 +25,7 @@ namespace LyricEditor.UserControls
 
         public TimeSpan TimeOffset { get; set; } = new TimeSpan(0, 0, 0, 0, -150);
         public bool ApproxTime { get; set; } = false;
+
         private TimeSpan GetApproxTime(TimeSpan time)
         {
             return new TimeSpan(time.Days, time.Hours, time.Minutes, time.Seconds, time.Milliseconds / 10 * 10);
