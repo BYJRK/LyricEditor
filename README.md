@@ -10,12 +10,8 @@ int.TryParse(string input, out int output)
 The current UI is shown below. Only Chinese version is provided.
 ![](example.jpg)
 
-If you still find the UI unsatisfying, let me introduce my earlier lyric editor to you someday. 
-
 # 歌词制作器
 
 一个优化了界面的歌词制作器，使用 `C# 7.0`，`WPF`，`.NET Framework 4.8` 制作。向下兼容至 `Windows 7`。
-
-如果你觉得还是不够好看的话，一定是因为你没见过以前的版本。
 
 知乎链接：[歌词制作器 LyricEditor 第二版发布及使用说明](https://zhuanlan.zhihu.com/p/32588196)
