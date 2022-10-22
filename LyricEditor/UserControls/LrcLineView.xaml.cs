@@ -1,13 +1,11 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using LyricEditor.Lyric;
 
 namespace LyricEditor.UserControls
 {
-    /// <summary>
-    /// LrcLinesView.xaml 的交互逻辑
-    /// </summary>
     public partial class LrcLineView : UserControl
     {
         public LrcLineView()
@@ -17,21 +15,26 @@ namespace LyricEditor.UserControls
             LrcLinePanel.Items.Clear();
             CurrentTimeText.Clear();
             CurrentLrcText.Clear();
-
-            Manager = new LrcManager();
         }
-        public LrcManager Manager { get; set; }
-        public MainWindow MyMainWindow;
 
         public TimeSpan TimeOffset { get; set; } = new TimeSpan(0, 0, 0, 0, -150);
         public bool ApproxTime { get; set; } = false;
 
         private TimeSpan GetApproxTime(TimeSpan time)
         {
-            return new TimeSpan(time.Days, time.Hours, time.Minutes, time.Seconds, time.Milliseconds / 10 * 10);
+            return new TimeSpan(
+                time.Days,
+                time.Hours,
+                time.Minutes,
+                time.Seconds,
+                time.Milliseconds / 10 * 10
+            );
         }
 
-        public bool HasSelection { get => SelectedIndex != -1; }
+        public bool HasSelection
+        {
+            get => SelectedIndex != -1;
+        }
         public int SelectedIndex
         {
             get => LrcLinePanel.SelectedIndex;
@@ -46,6 +49,7 @@ namespace LyricEditor.UserControls
         {
             get => SelectedIndex == LrcLinePanel.Items.Count - 1;
         }
+
         /// <summary>
         /// 修改了单行的信息后，更新歌词列表的显示
         /// </summary>
@@ -53,13 +57,15 @@ namespace LyricEditor.UserControls
         {
             LrcLinePanel.Items.Refresh();
         }
+
         /// <summary>
-        /// 同步 Manager 与歌词列表
+        /// 同步 LrcManager.Instance 与歌词列表
         /// </summary>
         public void UpdateLrcPanel()
         {
-            Manager.UpdateLrcList(LrcLinePanel);
+            LrcManager.Instance.UpdateLrcList(LrcLinePanel);
         }
+
         /// <summary>
         /// 根据选择的行数更改下方文本框的内容
         /// </summary>
@@ -82,57 +88,65 @@ namespace LyricEditor.UserControls
         /// </summary>
         private void LrcLinePanel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!HasSelection) return;
+            if (!HasSelection)
+                return;
             UpdateBottomTextBoxes();
         }
+
         /// <summary>
         /// 更改时间框的文本，更新主列表
         /// </summary>
         private void CurrentTime_Changed(object sender, TextChangedEventArgs e)
         {
-            if (!HasSelection) return;
+            if (!HasSelection)
+                return;
 
             int index = SelectedIndex;
             if (LrcHelper.TryParseTimeSpan(CurrentTimeText.Text, out TimeSpan time))
             {
-                Manager.LrcList[index].LrcTime = time;
+                LrcManager.Instance.LrcList[index].LrcTime = time;
                 ((LrcLine)LrcLinePanel.Items[index]).LrcTime = time;
                 RefreshLrcPanel();
             }
             else if (string.IsNullOrWhiteSpace(CurrentTimeText.Text))
             {
-                Manager.LrcList[index].LrcTime = null;
+                LrcManager.Instance.LrcList[index].LrcTime = null;
                 ((LrcLine)LrcLinePanel.Items[index]).LrcTime = null;
                 RefreshLrcPanel();
             }
         }
+
         /// <summary>
         /// 更改歌词框的文本，更新主列表
         /// </summary>
         private void CurrentLrc_Changed(object sender, TextChangedEventArgs e)
         {
-            if (!HasSelection) return;
+            if (!HasSelection)
+                return;
 
             int index = SelectedIndex;
-            Manager.LrcList[index].LrcText = CurrentLrcText.Text;
+            LrcManager.Instance.LrcList[index].LrcText = CurrentLrcText.Text;
             ((LrcLine)LrcLinePanel.Items[index]).LrcText = CurrentLrcText.Text;
             RefreshLrcPanel();
         }
+
         /// <summary>
         /// 在时间框中使用滚轮
         /// </summary>
         private void CurrentTimeText_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             // 如果没有选中任意一行
-            if (!HasSelection) return;
+            if (!HasSelection)
+                return;
             // 如果当前时间栏为空
-            if (string.IsNullOrWhiteSpace(CurrentTimeText.Text)) return;
+            if (string.IsNullOrWhiteSpace(CurrentTimeText.Text))
+                return;
             // 如果选中行的时间不存在（信息行）
             // 下面这行理论上是不需要的，因为如果是信息行，那么时间栏应该就是空的
             //if (SelectedItem.LrcTime is null) return;
 
             int index = SelectedIndex;
-            var currentTime = Manager.LrcList[index].LrcTime.Value.TotalSeconds;
+            var currentTime = LrcManager.Instance.LrcList[index].LrcTime.Value.TotalSeconds;
             if (e.Delta > 0)
             {
                 AdjustCurrentLineTime(new TimeSpan(0, 0, 0, 0, 50));
@@ -142,18 +156,22 @@ namespace LyricEditor.UserControls
                 AdjustCurrentLineTime(new TimeSpan(0, 0, 0, 0, -50));
             }
         }
+
         /// <summary>
         /// 双击主列表，跳转播放时间
         /// </summary>
         private void LrcLinePanel_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (!HasSelection) return;
+            if (!HasSelection)
+                return;
 
             LrcLine line = LrcLinePanel.SelectedItem as LrcLine;
-            if (!line.LrcTime.HasValue) return;
+            if (!line.LrcTime.HasValue)
+                return;
 
-            MyMainWindow.MediaPlayer.Position = line.LrcTime.Value;
+            ((MainWindow)Application.Current.MainWindow).MediaPlayer.Position = line.LrcTime.Value;
         }
+
         /// <summary>
         /// 在主列表上使用按键
         /// </summary>
@@ -171,10 +189,11 @@ namespace LyricEditor.UserControls
         {
             int index = SelectedIndex;
 
-            var currentTime = Manager.LrcList[index].LrcTime.Value.Add(delta);
-            if (currentTime < TimeSpan.Zero) currentTime = TimeSpan.Zero;
+            var currentTime = LrcManager.Instance.LrcList[index].LrcTime.Value.Add(delta);
+            if (currentTime < TimeSpan.Zero)
+                currentTime = TimeSpan.Zero;
 
-            Manager.LrcList[index].LrcTime = currentTime;
+            LrcManager.Instance.LrcList[index].LrcTime = currentTime;
             ((LrcLine)LrcLinePanel.Items[index]).LrcTime = currentTime;
 
             UpdateBottomTextBoxes();
@@ -182,18 +201,20 @@ namespace LyricEditor.UserControls
 
         public void SetCurrentLineTime(TimeSpan time)
         {
-            if (!HasSelection) return;
+            if (!HasSelection)
+                return;
             int index = SelectedIndex;
 
             // 判断是否为歌曲信息行
-            if (!Manager.LrcList[index].LrcTime.HasValue) return;
+            if (!LrcManager.Instance.LrcList[index].LrcTime.HasValue)
+                return;
 
             time += TimeOffset;
             if (time < TimeSpan.Zero)
                 time = TimeSpan.Zero;
 
             // 更新选中行的时间
-            Manager.LrcList[index].LrcTime = time;
+            LrcManager.Instance.LrcList[index].LrcTime = time;
             ((LrcLine)LrcLinePanel.Items[index]).LrcTime = time;
 
             // 根据是否到达最后一行来设定下一个选中行
@@ -209,38 +230,21 @@ namespace LyricEditor.UserControls
             RefreshLrcPanel();
             LrcLinePanel.ScrollIntoView(LrcLinePanel.SelectedItem);
         }
-        public void ResetAllTime()
-        {
-            Manager.ResetAllTime(LrcLinePanel);
-        }
-        public void ShiftAllTime(TimeSpan offset)
-        {
-            Manager.ShiftAllTime(LrcLinePanel, offset);
-        }
-        public void Undo()
-        {
-            Manager.Undo(LrcLinePanel);
-        }
-        public void Redo()
-        {
-            Manager.Redo(LrcLinePanel);
-        }
-        public void AddNewLine(TimeSpan time)
-        {
-            Manager.AddNewLine(LrcLinePanel, time);
-        }
-        public void DeleteLine()
-        {
-            Manager.DeleteLine(LrcLinePanel);
-        }
-        public void MoveUp()
-        {
-            Manager.MoveUp(LrcLinePanel);
-        }
-        public void MoveDown()
-        {
-            Manager.MoveDown(LrcLinePanel);
-        }
 
+        public void ResetAllTime() => LrcManager.Instance.ResetAllTime(LrcLinePanel);
+
+        public void ShiftAllTime(TimeSpan offset) => LrcManager.Instance.ShiftAllTime(LrcLinePanel, offset);
+
+        public void Undo() => LrcManager.Instance.Undo(LrcLinePanel);
+
+        public void Redo() => LrcManager.Instance.Redo(LrcLinePanel);
+
+        public void AddNewLine(TimeSpan time) => LrcManager.Instance.AddNewLine(LrcLinePanel, time);
+
+        public void DeleteLine() => LrcManager.Instance.DeleteLine(LrcLinePanel);
+
+        public void MoveUp() => LrcManager.Instance.MoveUp(LrcLinePanel);
+
+        public void MoveDown() => LrcManager.Instance.MoveDown(LrcLinePanel);
     }
 }

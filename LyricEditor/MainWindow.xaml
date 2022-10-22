@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LyricEditor"
         xmlns:uc="clr-namespace:LyricEditor.UserControls"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Width="800"
         Height="600"
         MinWidth="800"
@@ -20,11 +21,6 @@
         mc:Ignorable="d">
     <Window.Resources>
         <ResourceDictionary>
-
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles/Colors.xaml" />
-                <ResourceDictionary Source="Styles/Styles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
 
             <RoutedUICommand x:Key="SetTimeShortcut" />
             <RoutedUICommand x:Key="HelpShortcut" />
@@ -227,7 +223,23 @@
                                 Grid.Column="1"
                                 ToolTip="播放/暂停"
                                 Click="PlayButton_Click">
-                            <Image Margin="2,0,0,0" Source="Icons/MediaButtonIcons/Start.png" />
+                            <Button.Tag>
+                                <sys:Boolean>False</sys:Boolean>
+                            </Button.Tag>
+                            <Image Width="14" RenderOptions.BitmapScalingMode="Fant">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Margin" Value="2,0,0,0" />
+                                        <Setter Property="Source" Value="Icons/MediaButtonIcons/Start.png" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Tag}" Value="True">
+                                                <Setter Property="Margin" Value="0" />
+                                                <Setter Property="Source" Value="Icons/MediaButtonIcons/Pause.png" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
                         </Button>
                         <Button Name="ShortShiftRight"
                                 Grid.Column="2"
@@ -313,20 +325,20 @@
                 </Style>
             </Grid.Resources>
             <ProgressBar Name="TimeBackground"
+                         d:Value="0.5"
                          Foreground="LightBlue"
                          Background="White"
-                         Maximum="1"
-                         Value="0.5" />
+                         Maximum="1" />
             <TextBlock Name="CurrentTimeText"
                        Margin="5,0,0,0"
                        HorizontalAlignment="Left"
-                       FontWeight="Normal"
-                       Text="00:00" />
+                       d:Text="00:00"
+                       FontWeight="Normal" />
             <TextBlock Name="TotalTimeText"
                        Margin="0,0,5,0"
                        HorizontalAlignment="Right"
-                       FontWeight="Normal"
-                       Text="01:00" />
+                       d:Text="01:00"
+                       FontWeight="Normal" />
             <TextBlock Name="CurrentLrcText"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
@@ -350,7 +362,7 @@
             </StackPanel.Resources>
             <Button Name="FlagButton"
                     Margin="0,4,0,10"
-                    ToolTip="将当前播放位置应用到选中的歌词行"
+                    ToolTip="将当前播放位置应用到选中的歌词行（F5）"
                     Click="SetTime_Click">
                 <Image Source="Icons/ToolButtonIcons/Flag-red.png" />
             </Button>
@@ -384,23 +396,24 @@
                 </Button.ToolTip>
                 <Image Source="Icons/ToolButtonIcons/trash.png" />
             </Button>
+            <Separator />
             <Button Click="Undo_Click">
                 <Button.ToolTip>
-                    撤销
+                    撤销（Ctrl+Z）
                 </Button.ToolTip>
                 <Image Source="Icons/ToolButtonIcons/Go-back.png" />
             </Button>
             <Button Margin="0,0,0,10" Click="Redo_Click">
                 <Button.ToolTip>
-                    重做
+                    重做（Ctrl+Y）
                 </Button.ToolTip>
                 <Image Source="Icons/ToolButtonIcons/Go-into.png" />
             </Button>
-
+            <Separator />
             <StackPanel Name="ToolsForLrcLineOnly">
                 <Button Click="AddNewLine_Click">
                     <Button.ToolTip>
-                        在当前位置下方添加新歌词行
+                        在当前位置下方添加新歌词行（Insert）
                     </Button.ToolTip>
                     <Image Source="Icons/ToolButtonIcons/add1.png" />
                 </Button>

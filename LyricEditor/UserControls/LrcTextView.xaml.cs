@@ -16,8 +16,6 @@ namespace LyricEditor.UserControls
             Clear();
         }
 
-        public MainWindow MyMainWindow;
-
         /// <summary>
         /// 清空呈现歌词文本的文本框
         /// </summary>

@@ -1,23 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
 
 namespace LyricEditor.Converters
 {
-    public class BooleanToVisibilityConverter : IValueConverter
+    public class BooleanToVisibilityConverter : BaseValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public bool Reverse { get; set; }
+        public bool UseHidden { get; set; }
+
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((bool)value) return Visibility.Visible;
-            else return Visibility.Collapsed;
+            var b = (bool)value;
+            if (Reverse) b = !b;
+            if (b) return Visibility.Visible;
+            else return UseHidden ? Visibility.Hidden : Visibility.Collapsed;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

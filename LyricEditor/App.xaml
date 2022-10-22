@@ -4,10 +4,13 @@
              xmlns:local="clr-namespace:LyricEditor"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Style TargetType="{x:Type Control}">
-            <Setter Property="FontFamily" Value="Microsoft YaHei UI"/>
-        </Style>
-        <!--歌词字体-->
-        <FontFamily x:Key="LyricFont">Microsoft Yahei UI</FontFamily>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/Colors.xaml" />
+                <ResourceDictionary Source="Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
     </Application.Resources>
 </Application>
