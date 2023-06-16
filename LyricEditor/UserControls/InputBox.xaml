@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LyricEditor.UserControls"
         Title="输入窗口"
-        Width="250"
+        Width="Auto"
+        MinWidth="250"
         SizeToContent="Height"
         WindowStartupLocation="CenterOwner"
-        FontSize="16"
+        FontSize="{StaticResource LyricFontSize}"
         WindowStyle="ToolWindow"
         mc:Ignorable="d">
     <StackPanel>

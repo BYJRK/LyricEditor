@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:LyricEditor.UserControls"
              xmlns:conv="clr-namespace:LyricEditor.Converters"
              mc:Ignorable="d" 
-             FontSize="16"
+             FontSize="{StaticResource LyricFontSize}"
              FontFamily="{StaticResource LyricFont}"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
