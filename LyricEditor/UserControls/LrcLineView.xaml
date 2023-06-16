@@ -18,7 +18,7 @@
                   Margin="0"
                   x:FieldModifier="public"
                   BorderThickness="1,1,1,0"
-                  FontSize="16"
+                  FontSize="{StaticResource LyricFontSize}"
                   SelectionMode="Single"
                   MouseDoubleClick="LrcLinePanel_MouseDoubleClick"
                   KeyUp="LrcLinePanel_KeyUp"
@@ -28,7 +28,7 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="Auto" MinWidth="80"/>
                             <ColumnDefinition Width="10" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
@@ -56,13 +56,14 @@
         <DockPanel Grid.Row="1">
             <DockPanel.Resources>
                 <Style TargetType="TextBox">
-                    <Setter Property="FontSize" Value="16" />
+                    <Setter Property="FontSize" Value="{StaticResource LyricFontSize}" />
                     <Setter Property="VerticalContentAlignment" Value="Center" />
                     <Setter Property="FontFamily" Value="{StaticResource LyricFont}" />
                 </Style>
             </DockPanel.Resources>
             <TextBox Name="CurrentTimeText"
-                     Width="93"
+                     Width="Auto"
+                     MinWidth="93"
                      Padding="7,0,0,0"
                      HorizontalContentAlignment="Left"
                      DockPanel.Dock="Left"
