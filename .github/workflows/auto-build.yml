@@ -1,25 +1,33 @@
-name: Build
+name: Build and Test
 
 on:
   push:
-    branches:
-      - '**'
+    branches: [ main ]
   pull_request:
-    branches:
-      - '**'
-      
+    branches: [ main ]
+
 jobs:
   build:
     runs-on: windows-latest
-    
+
     steps:
-      - uses: actions/checkout@v3
-      
-      - name: Setup MSBuild path
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.0.2
-        
-      - name: Restore dependencies
+
+      - name: Restore NuGet packages
         run: nuget restore
-        
-      - name: Build the application
-        run: msbuild /p:Configuration=Release /t:Build
+
+      - name: Build solution
+        run: msbuild /t:restore /t:build /p:Configuration=Release
+
+      - name: Run tests
+        run: vstest.console.exe bin\Release\LyricEditor.Tests.dll
+
+      - name: Publish application
+        uses: actions/upload-artifact@v2
+        with:
+          name: LyricEditor
+          path: bin\Release\LyricEditor.exe
