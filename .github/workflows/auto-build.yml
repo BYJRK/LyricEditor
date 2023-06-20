@@ -34,4 +34,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: LyricEditor
-          path: bin\Release\LyricEditor.exe
+          path: D:\a\LyricEditor\LyricEditor\LyricEditor\bin\Release\LyricEditor.exe
