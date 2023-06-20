@@ -1,0 +1,37 @@
+name: Build and Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.0.2
+
+      - name: Restore NuGet packages
+        run: nuget restore
+
+      - name: Build solution
+        run: msbuild /t:restore /t:build /p:Configuration=Release
+
+#       - name: Install Test Platform
+#         run: |
+#           $url = "https://download.visualstudio.microsoft.com/download/pr/9c5f6087-5b4e-4650-a05c-4ec05b83c598/b8d15fb36766d5ea060813a817d99582/vs_TestAgent.exe"
+#           Invoke-WebRequest -Uri $url -OutFile vs_TestAgent.exe
+#           .\vs_TestAgent.exe --quiet --norestart
+
+#       - name: Run tests
+#         run: C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\TestPlatform\vstest.console.exe bin\Release\LyricEditor.Tests.dll
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: LyricEditor
+          path: D:\a\LyricEditor\LyricEditor\LyricEditor\bin\Release\*
