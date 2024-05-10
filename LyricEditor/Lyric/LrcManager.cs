@@ -123,7 +123,7 @@ namespace LyricEditor.Lyric
                     if (multiLrc)
                         LrcList = LrcList.OrderBy(x => x.LrcTime).ToList();
                 }
-                catch (Exception e)
+                catch
                 {
                     MessageBox.Show($"歌词文本第{lineNumber}行存在格式问题，请在检查后重试。");
                     LrcList.Clear();
