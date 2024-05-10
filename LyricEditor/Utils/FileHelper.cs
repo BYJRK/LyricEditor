@@ -20,7 +20,8 @@ namespace LyricEditor.Utils
             ".wmv",
             ".wma",
             ".aac",
-            ".flac"
+            ".flac",
+            ".m4a",
         };
 
         /// <summary>
