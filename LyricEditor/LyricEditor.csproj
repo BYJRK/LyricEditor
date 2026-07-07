@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net48</TargetFramework>
+        <TargetFramework>net10.0-windows</TargetFramework>
         <OutputType>WinExe</OutputType>
         <UseWindowsForms>true</UseWindowsForms>
         <UseWPF>true</UseWPF>
@@ -10,16 +10,15 @@
     </PropertyGroup>
     <ItemGroup>
         <Resource Include="Icons\**\*.*" />
-        <Resource Include="Icons\LrcMaker.ico" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Costura.Fody" Version="5.7.0">
+        <PackageReference Include="Costura.Fody" Version="6.2.0">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
+        <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.9" />
         <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-        <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
+        <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.9" />
         <PackageReference Include="taglib" Version="2.1.0.0" />
         <PackageReference Include="Ude.NetStandard" Version="1.2.0" />
     </ItemGroup>
