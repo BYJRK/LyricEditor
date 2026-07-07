@@ -1,3 +1,10 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="Directory.Build.props" />
+    <File Path="README.md" />
+    <File Path="version.json" />
+  </Folder>
   <Project Path="LyricEditor/LyricEditor.csproj" />
 </Solution>

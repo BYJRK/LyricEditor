@@ -118,8 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Info" xml:space="preserve">
-    <value>当前版本：2.1.2
-更新日期：2024/5/10
+    <value>当前版本：{0}
 ====================================
 请在作者的知乎专栏关注软件的【使用说明】。
 

@@ -675,7 +675,8 @@ public partial class MainWindow : Window
     /// </summary>
     private void Info_Click(object sender, RoutedEventArgs e)
     {
-        var res = MessageBox.Show(Properties.Resources.Info, "相关信息", MessageBoxButton.OKCancel);
+        var info = string.Format(Properties.Resources.Info, AppVersion.DisplayVersion);
+        var res = MessageBox.Show(info, "相关信息", MessageBoxButton.OKCancel);
         if (res == MessageBoxResult.OK)
             Process.Start("https://zhuanlan.zhihu.com/p/32588196");
     }
