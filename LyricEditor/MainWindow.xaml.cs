@@ -33,6 +33,8 @@ public partial class MainWindow : Window
         LrcLinePanel = (LrcLineView)LrcPanelContainer.Content;
         LrcTextPanel = new LrcTextView();
 
+        MediaPlayer.PlaybackEnded += MediaPlayer_PlaybackEnded;
+
         Timer = new DispatcherTimer();
         Timer.Tick += new EventHandler(Timer_Tick);
         Timer.Interval = new TimeSpan(0, 0, 0, 0, 20);
@@ -50,6 +52,11 @@ public partial class MainWindow : Window
 
     private LrcLineView LrcLinePanel;
     private LrcTextView LrcTextPanel;
+
+    /// <summary>
+    /// 音频播放器（NAudio）
+    /// </summary>
+    public AudioPlayer MediaPlayer { get; } = new AudioPlayer();
 
     public TimeSpan ShortTimeShift { get; private set; } = new TimeSpan(0, 0, 2);
     public TimeSpan LongTimeShift { get; private set; } = new TimeSpan(0, 0, 5);
@@ -73,26 +80,15 @@ public partial class MainWindow : Window
         var current = MediaPlayer.Position;
         CurrentTimeText.Text = $"{current.Minutes:00}:{current.Seconds:00}";
 
-        TimeBackground.Value =
-            MediaPlayer.Position.TotalSeconds
-            / MediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
-        CurrentLrcText.Text = LrcManager.Instance.GetNearestLrc(MediaPlayer.Position);
+        TimeBackground.Value = current.TotalSeconds / MediaPlayer.TotalTime.TotalSeconds;
+        CurrentLrcText.Text = LrcManager.Instance.GetNearestLrc(current);
     }
 
     #endregion
 
     #region 媒体播放器
 
-    private bool IsMediaAvailable
-    {
-        get
-        {
-            if (MediaPlayer.Source is null)
-                return false;
-            else
-                return MediaPlayer.HasAudio && MediaPlayer.NaturalDuration.HasTimeSpan;
-        }
-    }
+    private bool IsMediaAvailable => MediaPlayer.IsLoaded;
 
     private void Play()
     {
@@ -144,8 +140,15 @@ public partial class MainWindow : Window
     {
         try
         {
-            MediaPlayer.Source = new Uri(filename);
-            MediaPlayer.Stop();
+            MediaPlayer.Load(filename);
+
+            // 更新时间轴上的总时间
+            var totalTime = MediaPlayer.TotalTime;
+            TotalTimeText.Text = $"{totalTime.Minutes:00}:{totalTime.Seconds:00}";
+            CurrentTimeText.Text = "00:00";
+            PlayButton.Tag = false;
+            isPlaying = false;
+
             var title = TagLibHelper.GetTitle(filename);
             if (string.IsNullOrWhiteSpace(title))
                 title = Path.GetFileNameWithoutExtension(filename);
@@ -200,6 +203,7 @@ public partial class MainWindow : Window
     private void Window_Closed(object sender, EventArgs e)
     {
         Timer.Stop();
+        MediaPlayer.Dispose();
 
         // 保存配置文件
         Configuration cfa = ConfigurationManager.OpenExeConfiguration(
@@ -318,14 +322,38 @@ public partial class MainWindow : Window
     }
 
     /// <summary>
-    /// 打开媒体文件后，更新时间轴上的总时间
+    /// 播放自然结束，复位播放按钮
     /// </summary>
-    private void MediaPlayer_MediaOpened(object sender, RoutedEventArgs e)
+    private void MediaPlayer_PlaybackEnded(object sender, EventArgs e)
     {
-        var totalTime = MediaPlayer.NaturalDuration.TimeSpan;
-        TotalTimeText.Text = $"{totalTime.Minutes:00}:{totalTime.Seconds:00}";
-        CurrentTimeText.Text = "00:00";
-        Pause();
+        PlayButton.Tag = false;
+        isPlaying = false;
+    }
+
+    /// <summary>
+    /// 音量滑块
+    /// </summary>
+    private void VolumeSlider_ValueChanged(
+        object sender,
+        RoutedPropertyChangedEventArgs<double> e
+    )
+    {
+        if (MediaPlayer is null)
+            return;
+        MediaPlayer.Volume = (float)e.NewValue;
+    }
+
+    /// <summary>
+    /// 播放速度滑块
+    /// </summary>
+    private void SpeedSlider_ValueChanged(
+        object sender,
+        RoutedPropertyChangedEventArgs<double> e
+    )
+    {
+        if (MediaPlayer is null)
+            return;
+        MediaPlayer.Tempo = e.NewValue;
     }
 
     /// <summary>
@@ -521,12 +549,8 @@ public partial class MainWindow : Window
         double percent = current / TimeClickBar.ActualWidth;
         TimeBackground.Value = percent;
 
-        MediaPlayer.Position = new TimeSpan(
-            0,
-            0,
-            0,
-            0,
-            (int)(MediaPlayer.NaturalDuration.TimeSpan.TotalMilliseconds * percent)
+        MediaPlayer.Position = TimeSpan.FromMilliseconds(
+            MediaPlayer.TotalTime.TotalMilliseconds * percent
         );
     }
 

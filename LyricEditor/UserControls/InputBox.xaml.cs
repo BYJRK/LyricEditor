@@ -1,35 +1,34 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace LyricEditor.UserControls
+namespace LyricEditor.UserControls;
+
+public partial class InputBox : Window
 {
-    public partial class InputBox : Window
+    public InputBox()
     {
-        public InputBox()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        public static string Show(Window owner, string title, string message, string DefaultText = "")
+    public static string Show(Window owner, string title, string message, string DefaultText = "")
+    {
+        var box = new InputBox
         {
-            var box = new InputBox
-            {
-                Owner = owner,
-                Title = title
-            };
-            box.Message.Text = message;
-            box.Input.Text = DefaultText;
-            box.Input.Focus();
-            box.Input.SelectAll();
-            box.ShowDialog();
+            Owner = owner,
+            Title = title
+        };
+        box.Message.Text = message;
+        box.Input.Text = DefaultText;
+        box.Input.Focus();
+        box.Input.SelectAll();
+        box.ShowDialog();
 
-            return box.DialogResult.HasValue && box.DialogResult.Value ? box.Input.Text : string.Empty;
-        }
+        return box.DialogResult.HasValue && box.DialogResult.Value ? box.Input.Text : string.Empty;
+    }
 
-        private void ExitButton_Click(object sender, RoutedEventArgs e)
-        {
-            var btn = sender as Button;
-            DialogResult = btn.Name == "Yes";
-        }
+    private void ExitButton_Click(object sender, RoutedEventArgs e)
+    {
+        var btn = sender as Button;
+        DialogResult = btn.Name == "Yes";
     }
 }
