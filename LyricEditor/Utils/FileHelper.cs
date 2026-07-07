@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Ude;
@@ -29,7 +30,21 @@ public static class FileHelper
     /// </summary>
     public static HashSet<string> LyricExtensions { get; } = new HashSet<string> { ".lrc", ".txt" };
 
-    public const string TempFileName = "temp.txt";
+    /// <summary>
+    /// 自动保存缓存文件的完整路径（位于用户本地数据目录下的 LyricEditor 文件夹中，而非程序运行目录）
+    /// </summary>
+    public static string TempFileName
+    {
+        get
+        {
+            string dir = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "LyricEditor"
+            );
+            Directory.CreateDirectory(dir);
+            return Path.Combine(dir, "temp.txt");
+        }
+    }
 
     /// <summary>
     /// 判断读入文本的编码格式
