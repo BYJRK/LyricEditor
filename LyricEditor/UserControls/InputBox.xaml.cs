@@ -12,9 +12,11 @@ namespace LyricEditor.UserControls
 
         public static string Show(Window owner, string title, string message, string DefaultText = "")
         {
-            InputBox box = new InputBox();
-            box.Owner = owner;
-            box.Title = title;
+            var box = new InputBox
+            {
+                Owner = owner,
+                Title = title
+            };
             box.Message.Text = message;
             box.Input.Text = DefaultText;
             box.Input.Focus();

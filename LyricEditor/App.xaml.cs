@@ -1,13 +1,12 @@
 ﻿using System.Text;
 using System.Windows;
 
-namespace LyricEditor
+namespace LyricEditor;
+
+public partial class App : Application
 {
-    public partial class App : Application
+    public App()
     {
-        public App()
-        {
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-        }
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
     }
 }
