@@ -11,7 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using Forms = System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace LyricEditor;
 
@@ -235,10 +235,10 @@ public partial class MainWindow : Window
     /// </summary>
     private void ImportMedia_Click(object sender, RoutedEventArgs e)
     {
-        Forms.OpenFileDialog ofd = new Forms.OpenFileDialog();
+        OpenFileDialog ofd = new OpenFileDialog();
         ofd.Filter = "媒体文件|*.mp3;*.wav;*.3gp;*.mp4;*.avi;*.wmv;*.wma;*.aac|所有文件|*.*";
 
-        if (ofd.ShowDialog() == Forms.DialogResult.OK)
+        if (ofd.ShowDialog() == true)
         {
             ImportMedia(ofd.FileName);
             fileName = ofd.FileName;
@@ -250,10 +250,10 @@ public partial class MainWindow : Window
     /// </summary>
     private void ImportLyric_Click(object sender, RoutedEventArgs e)
     {
-        Forms.OpenFileDialog ofd = new Forms.OpenFileDialog();
+        OpenFileDialog ofd = new OpenFileDialog();
         ofd.Filter = "歌词文件|*.lrc;*.txt|所有文件|*.*";
 
-        if (ofd.ShowDialog() == Forms.DialogResult.OK)
+        if (ofd.ShowDialog() == true)
         {
             LrcManager.Instance.LoadFromFile(ofd.FileName);
             UpdateLrcView();
@@ -266,7 +266,7 @@ public partial class MainWindow : Window
     /// </summary>
     private void ExportLyric_Click(object sender, RoutedEventArgs e)
     {
-        Forms.SaveFileDialog ofd = new Forms.SaveFileDialog();
+        SaveFileDialog ofd = new SaveFileDialog();
         ofd.Filter = "歌词文件|*.lrc|文本文件|*.txt|所有文件|*.*";
 
         if (!string.IsNullOrEmpty(fileName))
@@ -274,7 +274,7 @@ public partial class MainWindow : Window
             ofd.FileName = Path.GetFileNameWithoutExtension(fileName);
         }
 
-        if (ofd.ShowDialog() == Forms.DialogResult.OK)
+        if (ofd.ShowDialog() == true)
         {
             Encoding encoding = ExportUTF8.IsChecked ? Encoding.UTF8 : Encoding.Default;
             File.WriteAllText(ofd.FileName, LrcManager.Instance.ToString(), encoding);
