@@ -11,10 +11,6 @@
         <Resource Include="Icons\**\*.*" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Costura.Fody" Version="6.2.0">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
         <PackageReference Include="NAudio" Version="2.3.0" />
         <PackageReference Include="SoundTouch.Net.NAudioSupport.Core" Version="2.3.2" />
         <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.9" />
